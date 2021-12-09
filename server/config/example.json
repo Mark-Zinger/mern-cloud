@@ -4,5 +4,6 @@
         "name":"mongo-database-name",
         "user": "mongo-user",
         "password": "mongo-password"
-    }
+    },
+    "secretKey": "jwt-secret-key"
 }
