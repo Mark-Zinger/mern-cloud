@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const congif = require("config");
+const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../models/User");
+const authMiddleware = require("../middleware/auth.middleware");
 
 
 const router = new Router();
@@ -44,13 +45,14 @@ router.post('/login',
 
             const { email, password } = req.body;
 
-            const user = ( await User.findOne({email}) ).toObject();
+            let user = await User.findOne({email});
             if(!user) return res.status(404).json({message: "User not found"});
+            user = user.toObject();
 
             const isPassValid = bcrypt.compareSync(password, user.password);
             if(!isPassValid) return res.status(400).json({message: "Invalid password"});
 
-            const token = jwt.sign({ id: user.id }, congif.get("secretKey"), { expiresIn: "1h"});
+            const token = jwt.sign({ id: user._id }, config.get("secretKey"), { expiresIn: "1h"});
 
             delete user.password;
 
@@ -59,6 +61,27 @@ router.post('/login',
         } catch (e) {
             console.log(e);
             res.send({message: "Server Error"})
+        }
+    }
+);
+
+
+router.get('/', authMiddleware,
+    async (req, res) => {
+        try {
+
+            let user =  await User.findOne({ _id: req.user.id });
+            if(!user) return res.status(404).json({message: "User not found"});
+            user = user.toObject();
+
+            const token = jwt.sign({id: user._id}, config.get("secretKey"), {expiresIn: "1h"})
+
+            delete user.password;
+
+            return res.json({ token, user })
+        } catch (e) {
+            console.log(e)
+            res.send({message: "Server error"})
         }
     }
 );

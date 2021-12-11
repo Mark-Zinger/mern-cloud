@@ -1,8 +1,10 @@
+console.clear();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
 
-const CORSMiddleware = require("./middleware/cors")
+const CORSMiddleware = require("./middleware/cors.middleware");
 const authRouter = require("./routes/auth.routes");
 
 const app = express();

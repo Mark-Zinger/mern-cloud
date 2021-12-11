@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,8 +7,13 @@ import BackupIcon from '@mui/icons-material/Backup';
 import Button from '@mui/material/Button';
 
 import AuthBar from "../AuthBar";
+import UserBar from "../UserBar";
 
 export default function Navbar () {
+
+    const isAuth = useSelector(state => state.user.isAuth);
+
+
     return (
         <AppBar>
             <Toolbar>
@@ -22,7 +28,11 @@ export default function Navbar () {
                 >
                     MERN CLOUD
                 </Button>
-                <AuthBar/>
+                { isAuth
+                    ? <UserBar/>
+                    : <AuthBar/>
+                }
+                
             </Toolbar>
         </AppBar>
     )

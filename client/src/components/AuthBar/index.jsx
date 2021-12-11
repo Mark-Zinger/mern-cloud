@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -17,10 +17,6 @@ function AuthBar() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(()=> {
-        console.log({email,password})
-    },[email,password])
-
     const openModal = (type) => setModal({...modal, isOpen: true, type});
     const closeModal = () => setModal({...modal, isOpen: false});
 
@@ -28,7 +24,6 @@ function AuthBar() {
         login: "Authorization",
         registration: "Registration"
     }
-
     
     const submit = useCallback((data)=>{
         userActions[modal.type](data)
@@ -44,10 +39,11 @@ function AuthBar() {
                 open={modal.isOpen} 
                 handleClose={closeModal} 
                 title={modalTitles[modal.type]}
+                onSubmit={()=> submit({email,password})}
                 actions={
-                    <Button onClick={()=> submit({email,password})}>Submit</Button>
+                    <Button type="submit">Submit</Button>
                 }
-            >
+            >   
                 <TextField
                     autoFocus
                     margin="dense"
