@@ -5,5 +5,6 @@
         "user": "mongo-user",
         "password": "mongo-password"
     },
-    "secretKey": "jwt-secret-key"
+    "secretKey": "jwt-secret-key",
+    "filePath": "C:\\Path\\To\\Files"
 }

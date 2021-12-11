@@ -1,0 +1,9 @@
+.idea
+.vscode
+
+# dependencies
+server/node_modules
+client/node_modules
+
+server/files
+server/static
