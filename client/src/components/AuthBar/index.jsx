@@ -10,6 +10,7 @@ import * as userActions from '../../actions/user';
 
 
 function AuthBar() {
+    
     const [modal, setModal] = useState({
         isOpen: false,
         type: "login" // enum (login || registration)

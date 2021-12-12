@@ -3,9 +3,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
-function Modal({open, handleClose, title="", children=null, actions=null, onSubmit}) {
+function Modal({open, handleClose, title="", children=null, actions=null, onSubmit, ...ownProps}) {
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} {...ownProps}>
             <form onSubmit={(e) => {e.preventDefault(); if(onSubmit)onSubmit(e);}}>
                 <DialogTitle>{title}</DialogTitle>
                 <DialogContent>

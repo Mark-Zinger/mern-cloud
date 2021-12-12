@@ -9,6 +9,7 @@ class FileController {
             const file = new File({ name, type, parent, user: req.user.id });
 
             const parentFile = await File.findOne({ _id: parent });
+            const user = await User.findOne({ _id: req.user.id });
 
             if (!parentFile) {
                 file.path = name;
@@ -21,6 +22,9 @@ class FileController {
             }
 
             await file.save();
+
+            await user.files.push(file);
+            await user.save();
 
             return res.json(file);
         } catch (e) {

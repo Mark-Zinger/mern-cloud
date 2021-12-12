@@ -24,7 +24,7 @@ export const login = async ({email, password}) => {
             dispatch(setUser(response.data))
             localStorage.setItem('token', response.data.token);
         } catch (e) {
-            alert(e.response.data.message)
+            // alert(e.response.data.message)
             console.dir(e)
         }
     })
