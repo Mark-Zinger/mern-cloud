@@ -26,7 +26,7 @@ function AddFiles() {
     const closeModal = () => setModal({...modal, isOpen: false});
 
     const modalTitles = {
-        login: "_______Create new folder________",
+        login: "Create new folder",
         registration: "Registration"
     }
 

@@ -1,8 +1,20 @@
+import { useDispatch } from 'react-redux';
+
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import FileIcon from "../FileIcon";
 
+import { setCurrentDir } from "../../reducers/fileReducer";
+
 function FileItem(props) {
+
+    const dispatch = useDispatch()
+
+
+    function openDirHandler () {
+        if(props.type === 'dir') dispatch(setCurrentDir(props._id));
+    }
+
 
     return (
         <TableRow
@@ -12,7 +24,7 @@ function FileItem(props) {
                 cursor: 'pointer'
              }}
              hover={true}
-             
+             onClick={openDirHandler}
             >
             <TableCell>
                 <FileIcon type={props.type}/>
