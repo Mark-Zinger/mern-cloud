@@ -1,18 +1,22 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import FileIcon from "../FileIcon";
 
-import { setCurrentDir } from "../../reducers/fileReducer";
+import { setCurrentDir, pushToFileStack } from "../../reducers/fileReducer";
 
 function FileItem(props) {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const currentDir = useSelector(state => state.files.currentDir)
 
 
     function openDirHandler () {
-        if(props.type === 'dir') dispatch(setCurrentDir(props._id));
+        if(props.type === 'dir') {
+            dispatch(pushToFileStack(currentDir))
+            dispatch(setCurrentDir(props._id))
+        };
     }
 
 

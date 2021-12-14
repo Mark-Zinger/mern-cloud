@@ -4,6 +4,7 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
+import Typography from '@mui/material/Typography';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
@@ -29,7 +30,12 @@ export default function FileList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            { files.map((props) => ( <FileItem key={props._id} {...props}/>)) }
+            {  files.length 
+                ? files.map((props) => ( <FileItem key={props._id} {...props}/>))
+                : <Typography align="center" variant="h6">
+                    Пустая папка
+                  </Typography>
+            }
           </TableBody>
         </Table>
       </TableContainer>
